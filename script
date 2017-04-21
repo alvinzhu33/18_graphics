@@ -1,0 +1,25 @@
+torus
+250 250 250 30 200
+box
+210 358 500 80 80 80
+sphere
+210 358 500 30
+sphere
+210 358 420 30
+sphere
+290 358 500 30
+sphere
+290 358 420 30
+ident
+rotate
+x 20
+rotate
+y -20
+apply
+ident
+move
+130 80 0
+apply
+display
+save
+pic.png
