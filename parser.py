@@ -1,6 +1,7 @@
 from display import *
 from matrix import *
 from draw import *
+from copy import *
 
 """
 Goes through the file named filename and performs all of the actions listed in that file.
@@ -46,13 +47,16 @@ The file follows the following format:
 See the file script for an example of the file format
 """
 ARG_COMMANDS = [ 'line', 'scale', 'move', 'rotate', 'save', 'circle', 'bezier', 'hermite', 'box', 'sphere', 'torus', 'polygon' ]
-    
+
 
 def parse_file( fname, edges, transform, screen, color ):
 
     f = open(fname)
     lines = f.readlines()
-    stack = [];
+
+    start = new_matrix();
+    ident(start);
+    stack = [start];
 
     step = 0.1
     c = 0
@@ -77,8 +81,8 @@ def parse_file( fname, edges, transform, screen, color ):
             add_sphere(temp,
                        float(args[0]), float(args[1]), float(args[2]),
                        float(args[3]), step)
-            matrix_mult(temp, stack[len(stack)-1]);
-            draw_polygons(stack[len(stack)-1], screen, color);
+            matrix_mult(stack[len(stack)-1], temp);
+            draw_polygons(temp, screen, color);
 
         elif line == 'torus':
             #print 'TORUS\t' + str(args)
@@ -141,10 +145,10 @@ def parse_file( fname, edges, transform, screen, color ):
             matrix_mult(t, stack[len(stack)-1])
 
         elif line == 'push':
-            stack.append(transform);
+            stack.append(deepcopy(stack[len(stack)-1]));
 
         elif line == 'pop':
-            stack.remove(len(stack)-1);
+            stack.pop();
 
         elif line == 'clear':
             edges = []
@@ -155,7 +159,7 @@ def parse_file( fname, edges, transform, screen, color ):
         elif line == 'apply':
             matrix_mult( transform, edges )
 
-        elif line == 'display' or line == 'save':            
+        elif line == 'display' or line == 'save':
 
             if line == 'display':
                 display(screen)

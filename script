@@ -1,7 +1,5 @@
 ident
 push
-ident
-push
 move
 50 50 50
 sphere
