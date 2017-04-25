@@ -57,6 +57,8 @@ def parse_file( fname, edges, transform, screen, color ):
     start = new_matrix();
     ident(start);
     stack = [start];
+    tempPoly = [];
+    tempEdge = [];
 
     step = 0.1
     c = 0
@@ -77,50 +79,64 @@ def parse_file( fname, edges, transform, screen, color ):
 
         elif line == 'sphere':
             #print 'SPHERE\t' + str(args)
-            temp = [];
-            add_sphere(temp,
+            add_sphere(tempPoly,
                        float(args[0]), float(args[1]), float(args[2]),
                        float(args[3]), step)
-            matrix_mult(stack[len(stack)-1], temp);
-            draw_polygons(temp, screen, color);
+            matrix_mult(stack[len(stack)-1], tempPoly);
+            draw_polygons(tempPoly, screen, color);
+            tempPoly = [];
 
         elif line == 'torus':
             #print 'TORUS\t' + str(args)
-            temp = [];
-            add_torus(temp,
+            add_torus(tempPoly,
                       float(args[0]), float(args[1]), float(args[2]),
                       float(args[3]), float(args[4]), step)
-            matrix_mult(temp, stack[len(stack)-1]);
+            matrix_mult(stack[len(stack)-1], tempPoly);
+            draw_polygons(tempPoly, screen, color);
+            tempPoly = [];
 
         elif line == 'box':
             #print 'BOX\t' + str(args)
-            temp = [];
-            add_box(temp,
+            add_box(tempPoly,
                     float(args[0]), float(args[1]), float(args[2]),
                     float(args[3]), float(args[4]), float(args[5]))
-            matrix_mult(temp, stack[len(stack)-1]);
+            print("HERE")
+            print tempPoly;
+            matrix_mult(stack[len(stack)-1], tempPoly);
+            print("HERE")
+            print tempPoly;
+            draw_polygons(tempPoly, screen, color);
+            tempPoly = [];
 
         elif line == 'circle':
             #print 'CIRCLE\t' + str(args)
-            add_circle(edges,
+            add_circle(tempEdge,
                        float(args[0]), float(args[1]), float(args[2]),
                        float(args[3]), step)
+            matrix_mult(stack[len(stack)-1], tempEdge);
+            draw_lines(tempEdge, screen, color);
+            tempEdge= [];
 
         elif line == 'hermite' or line == 'bezier':
             #print 'curve\t' + line + ": " + str(args)
-            add_curve(edges,
+            add_curve(tempEdge,
                       float(args[0]), float(args[1]),
                       float(args[2]), float(args[3]),
                       float(args[4]), float(args[5]),
                       float(args[6]), float(args[7]),
                       step, line)
+            matrix_mult(stack[len(stack)-1], tempEdge);
+            draw_lines(tempEdge, screen, color);
+            tempEdge= [];
 
         elif line == 'line':
             #print 'LINE\t' + str(args)
-
-            add_edge( edges,
+            add_edge( tempEdge,
                       float(args[0]), float(args[1]), float(args[2]),
                       float(args[3]), float(args[4]), float(args[5]) )
+            matrix_mult(stack[len(stack)-1], tempEdge);
+            draw_lines(tempEdge, screen, color);
+            tempEdge= [];
 
         elif line == 'scale':
             #print 'SCALE\t' + str(args)
@@ -170,5 +186,4 @@ def parse_file( fname, edges, transform, screen, color ):
 
         print(line);
         if len(stack)-1 >= 0:
-            #print(line == 'move');
             print(stack);
