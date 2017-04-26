@@ -148,3 +148,5 @@ bezier
 pop
 pop
 display
+save
+pic.png
