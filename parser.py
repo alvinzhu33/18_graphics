@@ -100,11 +100,7 @@ def parse_file( fname, edges, transform, screen, color ):
             add_box(tempPoly,
                     float(args[0]), float(args[1]), float(args[2]),
                     float(args[3]), float(args[4]), float(args[5]))
-            print("HERE")
-            print tempPoly;
             matrix_mult(stack[len(stack)-1], tempPoly);
-            print("HERE")
-            print tempPoly;
             draw_polygons(tempPoly, screen, color);
             tempPoly = [];
 
@@ -141,12 +137,14 @@ def parse_file( fname, edges, transform, screen, color ):
         elif line == 'scale':
             #print 'SCALE\t' + str(args)
             t = make_scale(float(args[0]), float(args[1]), float(args[2]))
-            matrix_mult(t, stack[len(stack)-1])
+            matrix_mult(stack[len(stack)-1], t)
+            stack[len(stack)-1] = t;
 
         elif line == 'move':
             #print 'MOVE\t' + str(args)
             t = make_translate(float(args[0]), float(args[1]), float(args[2]))
-            matrix_mult(t, stack[len(stack)-1])
+            matrix_mult(stack[len(stack)-1], t)
+            stack[len(stack)-1] = t;
 
         elif line == 'rotate':
             #print 'ROTATE\t' + str(args)
@@ -158,7 +156,8 @@ def parse_file( fname, edges, transform, screen, color ):
                 t = make_rotY(theta)
             else:
                 t = make_rotZ(theta)
-            matrix_mult(t, stack[len(stack)-1])
+            matrix_mult(stack[len(stack)-1], t)
+            stack[len(stack)-1] = t;
 
         elif line == 'push':
             stack.append(deepcopy(stack[len(stack)-1]));
@@ -184,6 +183,6 @@ def parse_file( fname, edges, transform, screen, color ):
 
         c+= 1
 
-        print(line);
+        '''print(line);
         if len(stack)-1 >= 0:
-            print(stack);
+            print(stack);'''
