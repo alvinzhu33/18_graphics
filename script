@@ -1,47 +1,150 @@
 #0Dress
 push
+color
+0 100 100
 move
 250 0 0
+scale
+1.5 1.5 1.5
 torus
 0 100 50 15 100
-#LFeet
+#RFeet
 push
+color
+255 255 255
 rotate
 y 45
+move
+5 0 0
 box
 0 85 40 20 50 20
-#RToe
-push
-box
-0 35 60 20 20 40
-pop
 #RHeel
 push
+color
+255 0 0
 box
 0 35 20 20 20 10
 pop
+#RToe
+push
+color
+255 0 255
+box
+0 35 60 20 20 40
 pop
-'#RFeet
-'push
-'rotate
-'y 180
-'box
-'0 85 40 20 50 20
-'box
-'20 35 40 40 20 20
-'box
-'-20 35 45 10 20 10
-'pop
+pop
+#LFeet
+push
+color
+255 255 255
+rotate
+y 315
+move
+-10 0 0
+box
+0 85 40 20 50 20
+#LHeel
+push
+color
+255 0 0
+box
+0 35 20 20 20 10
+pop
+#LToe
+push
+color
+255 0 255
+box
+0 35 60 20 20 40
+pop
+pop
 #1Dress
 push
+color
+0 150 150
 torus
 0 130 50 15 70
 #2Dress
 push
+color
+0 200 200
 torus
 0 160 50 15 40
+#RArm
+push
+color
+255 255 255
+move
+55 160 45
+rotate
+z 20
+box
+0 10 0 70 20 10
+#RForearm
+push
+move
+70 10 0
+rotate
+z 30
+box
+0 0 0 70 20 10
+pop
+pop
+#LArm
+push
+color
+255 255 255
+move
+-55 160 45
+rotate
+y 180
+rotate
+z -20
+box
+0 10 0 70 20 10
+#LForearm
+push
+move
+70 10 0
+rotate
+z -30
+box
+0 0 0 70 20 10
+pop
+pop
 #3Dress
 push
+color
+0 255 255
 torus
 0 190 50 15 10
+#Head
+push
+color
+255 255 255
+move
+0 235 0
+sphere
+0 0 0 30
+move
+0 30 0
+#Rhair
+push
+color
+255 0 0
+scale
+6.5 6 1
+bezier
+10 -10 3 -9 7 4 0 0
+pop
+#LHair
+push
+scale
+6.5 6 1
+rotate
+y 180
+bezier
+10 -10 3 -9 7 4 0 0
+pop
+pop
 display
